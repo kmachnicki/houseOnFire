@@ -1,4 +1,6 @@
 #include "OutputWindow.hpp"
+#include "Firefighter.hpp"
+#include "Arsonist.hpp"
 
 OutputWindow* OutputWindow::m_instance = nullptr;
 
@@ -43,32 +45,36 @@ OutputWindow::~OutputWindow()
     endwin();
 }
 
-void OutputWindow::refreshFirefighters(std::vector<Firefighter> firefighters)
+void OutputWindow::refreshFirefighters(unsigned id, std::string status)
 {
     std::lock_guard<std::mutex> lock(m_screenLock);
-    std::stringstream status;
-    for (unsigned i = 0; i < firefighters.size(); ++i)
+    m_firefighters[id] = status;
+    std::stringstream message;
+    unsigned i = 0;
+    for (auto it = m_firefighters.begin(); it != m_firefighters.end(); ++it, ++i)
     {
-        status << "ID: " << firefighters[i].getId() << " Status: " << firefighters[i].getStatus();
+        message << "ID: " << it->first << " Status: " << it->second;
         move(i + 2, 0);
         clrtoeol();
         refresh();
-        mvwprintw(m_firefightersWindow.window, i + 2, 0, status.str().c_str());
+        mvwprintw(m_firefightersWindow.window, i + 2, 0, message.str().c_str());
     }
     wrefresh(m_firefightersWindow.window);
 }
 
-void OutputWindow::refreshArsonists(std::vector<Arsonist> arsonists)
+void OutputWindow::refreshArsonists(unsigned id, std::string status)
 {
     std::lock_guard<std::mutex> lock(m_screenLock);
-    std::stringstream status;
-    for (unsigned i = 0; i < arsonists.size(); ++i)
+    m_arsonists[id] = status;
+    std::stringstream message;
+    unsigned i = 0;
+    for (auto it = m_arsonists.begin(); it != m_arsonists.end(); ++it, ++i)
     {
-        status << "ID: " << arsonists[i].getId() << " Status: " << arsonists[i].getStatus();
+        message << "ID: " << it->first << " Status: " << it->second;
         move(i + 2, 0);
         clrtoeol();
         refresh();
-        mvwprintw(m_arsonistsWindow.window, i + 2, 0, status.str().c_str());
+        mvwprintw(m_arsonistsWindow.window, i + 2, 0, message.str().c_str());
     }
     wrefresh(m_arsonistsWindow.window);
 }

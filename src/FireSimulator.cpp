@@ -12,12 +12,12 @@ void FireSimulator::run()
 {
     for (unsigned i = 0; i < m_firefighters.size(); ++i)
     {
-        m_firefighters[i] = std::move(std::thread(&Firefighter::run, new Firefighter(i)));//i, m_playground, m_house);//std::move(std::thread(&Firefighter::run, i, m_playground, m_house));
+        m_firefighters[i] = std::move(std::thread(&Firefighter::run, new Firefighter(i, m_playground, m_house)));
     }
 
     for (unsigned i = 0; i < m_arsonists.size(); ++i)
     {
-        m_arsonists[i] = std::move(std::thread(&Arsonist::run, new Arsonist(i)));//i, m_playground, m_house);//std::move(std::thread(&Arsonist::run, i, m_playground, m_house));
+        m_arsonists[i] = std::move(std::thread(&Arsonist::run, new Arsonist(i, m_playground, m_house)));
     }
 
     for (auto& firefighter : m_firefighters)

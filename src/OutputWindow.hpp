@@ -3,11 +3,11 @@
 #include <ncurses.h>
 #include <thread>
 #include <mutex>
-#include <vector>
+#include <map>
 #include <sstream>
 
-#include "Firefighter.hpp"
-#include "Arsonist.hpp"
+class Firefighter;
+class Arsonist;
 
 #define Screen OutputWindow::get()
 
@@ -38,8 +38,8 @@ class OutputWindow
 {
 public:
     static OutputWindow& get();
-    void refreshFirefighters(std::vector<Firefighter> firefighters);
-    void refreshArsonists(std::vector<Arsonist> arsonists);
+    void refreshFirefighters(unsigned id, std::string status);
+    void refreshArsonists(unsigned id, std::string status);
     void refreshHouse(unsigned houseFireSize);
 
 private:
@@ -51,6 +51,8 @@ private:
 
     static OutputWindow* m_instance;
 
+    std::map<unsigned, std::string> m_firefighters;
+    std::map<unsigned, std::string> m_arsonists;
     mutable std::mutex m_screenLock;
     Coords m_screen;
     Window m_firefightersWindow;
