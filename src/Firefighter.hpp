@@ -1,5 +1,9 @@
 #pragma once
 
+#include <sstream>
+#include <thread>
+#include <mutex>
+
 class Firefighter
 {
 public:
