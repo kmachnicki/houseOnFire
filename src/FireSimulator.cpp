@@ -4,25 +4,23 @@ FireSimulator::FireSimulator(unsigned numOfFirefighters, unsigned numOfArsonists
                              unsigned numOfFirehoses, unsigned numOfHelmets, unsigned initialFireSize)
     : m_firefighters(numOfFirefighters)
     , m_arsonists(numOfArsonists)
-    , m_hatchets(numOfHatchets)
-    , m_firehoses(numOfFirehoses)
-    , m_helmets(numOfHelmets)
-    , m_initialFireSize(initialFireSize)
+    , m_playground(std::make_shared<Playground>(numOfHatchets, numOfFirehoses, numOfHelmets))
+    , m_house(std::make_shared<House>(initialFireSize))
 {}
 
 void FireSimulator::run()
 {
     for (unsigned i = 0; i < m_firefighters.size(); ++i)
     {
-        m_firefighters[i] = std::move(std::thread(&Firefighter::run, new Firefighter()));
+        m_firefighters[i] = std::move(std::thread(&Firefighter::run, new Firefighter(i)));//i, m_playground, m_house);//std::move(std::thread(&Firefighter::run, i, m_playground, m_house));
     }
 
     for (unsigned i = 0; i < m_arsonists.size(); ++i)
     {
-        m_arsonists[i] = std::move(std::thread(&Arsonist::run, new Arsonist()));
+        m_arsonists[i] = std::move(std::thread(&Arsonist::run, new Arsonist(i)));//i, m_playground, m_house);//std::move(std::thread(&Arsonist::run, i, m_playground, m_house));
     }
 
-    for (auto& firefighter : m_arsonists)
+    for (auto& firefighter : m_firefighters)
     {
         firefighter.join();
     }

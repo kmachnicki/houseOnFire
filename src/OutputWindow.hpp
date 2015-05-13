@@ -4,6 +4,12 @@
 #include <thread>
 #include <mutex>
 #include <vector>
+#include <sstream>
+
+#include "Firefighter.hpp"
+#include "Arsonist.hpp"
+
+#define Screen OutputWindow::get()
 
 struct Window
 {
@@ -31,15 +37,21 @@ struct Coords
 class OutputWindow
 {
 public:
-    OutputWindow();
-    virtual ~OutputWindow();
-
-    void refreshFirefighters(std::vector<std::thread> firefighters);
-    void refreshArsonists(std::vector<std::thread> arsonists);
+    static OutputWindow& get();
+    void refreshFirefighters(std::vector<Firefighter> firefighters);
+    void refreshArsonists(std::vector<Arsonist> arsonists);
     void refreshHouse(unsigned houseFireSize);
 
 private:
-    std::mutex m_screenLock;
+    OutputWindow();
+    virtual ~OutputWindow();
+    OutputWindow(OutputWindow&&) = delete;
+    OutputWindow(const OutputWindow&) = delete;
+    OutputWindow& operator=(OutputWindow&) = delete;
+
+    static OutputWindow* m_instance;
+
+    mutable std::mutex m_screenLock;
     Coords m_screen;
     Window m_firefightersWindow;
     Window m_arsonistsWindow;

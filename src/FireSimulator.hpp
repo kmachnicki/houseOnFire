@@ -10,10 +10,13 @@
 #include <atomic>
 #include <cassert>
 #include <queue>
+#include <memory>
 #include <condition_variable>
 
 #include "Arsonist.hpp"
 #include "Firefighter.hpp"
+#include "Playground.hpp"
+#include "House.hpp"
 
 class FireSimulator
 {
@@ -28,11 +31,9 @@ private:
     FireSimulator(const FireSimulator&) = delete;
     FireSimulator& operator=(FireSimulator&) = delete;
 
-    std::vector <std::thread> m_firefighters;
-    std::vector <std::thread> m_arsonists;
+    std::vector<std::thread> m_firefighters;
+    std::vector<std::thread> m_arsonists;
 
-    volatile unsigned m_hatchets;
-    volatile unsigned m_firehoses;
-    volatile unsigned m_helmets;
-    volatile unsigned m_initialFireSize;
+    std::shared_ptr<Playground> m_playground;
+    std::shared_ptr<House> m_house;
 };

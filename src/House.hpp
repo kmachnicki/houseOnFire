@@ -3,6 +3,8 @@
 #include <thread>
 #include <mutex>
 
+#include "OutputWindow.hpp"
+
 class House
 {
 public:
@@ -16,6 +18,5 @@ public:
 
 private:
     volatile unsigned m_fireSize;
-    bool m_isSomeoneInside;
     mutable std::mutex m_guard;
 };
