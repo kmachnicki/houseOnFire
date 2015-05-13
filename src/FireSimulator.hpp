@@ -36,4 +36,5 @@ private:
 
     std::shared_ptr<Playground> m_playground;
     std::shared_ptr<House> m_house;
+    std::shared_ptr<OutputWindow> m_screen;
 };

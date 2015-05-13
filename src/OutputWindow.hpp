@@ -9,8 +9,6 @@
 class Firefighter;
 class Arsonist;
 
-#define Screen OutputWindow::get()
-
 struct Window
 {
     Window() = default;
@@ -37,20 +35,17 @@ struct Coords
 class OutputWindow
 {
 public:
-    static OutputWindow& get();
-    void refreshFirefighters(unsigned id, std::string status);
-    void refreshArsonists(unsigned id, std::string status);
-    void refreshHouse(unsigned houseFireSize);
-
-private:
     OutputWindow();
     virtual ~OutputWindow();
     OutputWindow(OutputWindow&&) = delete;
     OutputWindow(const OutputWindow&) = delete;
     OutputWindow& operator=(OutputWindow&) = delete;
 
-    static OutputWindow* m_instance;
+    void refreshFirefighters(unsigned id, std::string status);
+    void refreshArsonists(unsigned id, std::string status);
+    void refreshHouse(unsigned houseFireSize);
 
+private:
     std::map<unsigned, std::string> m_firefighters;
     std::map<unsigned, std::string> m_arsonists;
     mutable std::mutex m_screenLock;

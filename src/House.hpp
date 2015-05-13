@@ -8,7 +8,7 @@
 class House
 {
 public:
-    House(unsigned initialFireSize);
+    House(unsigned initialFireSize, std::shared_ptr<OutputWindow> screen);
     virtual ~House() = default;
 
     unsigned getFireSize() const;
@@ -18,5 +18,6 @@ public:
 
 private:
     volatile unsigned m_fireSize;
+    std::shared_ptr<OutputWindow> m_screen;
     mutable std::mutex m_guard;
 };

@@ -2,16 +2,6 @@
 #include "Firefighter.hpp"
 #include "Arsonist.hpp"
 
-OutputWindow* OutputWindow::m_instance = nullptr;
-
-OutputWindow& OutputWindow::get()
-{
-    if (m_instance == nullptr)
-        m_instance = new OutputWindow();
-
-    return *m_instance;
-}
-
 OutputWindow::OutputWindow()
     : m_screen(Coords(0,0))
 {

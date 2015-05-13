@@ -12,7 +12,7 @@
 class Arsonist
 {
 public:
-    Arsonist(unsigned id, std::shared_ptr<Playground> playground, std::shared_ptr<House> house);
+    Arsonist(unsigned id, std::shared_ptr<Playground> playground, std::shared_ptr<House> house, std::shared_ptr<OutputWindow> screen);
     ~Arsonist();
 
     void run();
@@ -25,4 +25,5 @@ private:
     bool m_isRunning;
     std::shared_ptr<Playground> m_playground;
     std::shared_ptr<House> m_house;
+    std::shared_ptr<OutputWindow> m_screen;
 };

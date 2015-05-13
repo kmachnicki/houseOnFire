@@ -1,7 +1,8 @@
 #include "House.hpp"
 
-House::House(unsigned initialFireSize)
+House::House(unsigned initialFireSize, std::shared_ptr<OutputWindow> screen)
     : m_fireSize(initialFireSize)
+    , m_screen(screen)
 {}
 
 unsigned House::getFireSize() const
@@ -14,7 +15,7 @@ void House::extinguish()
     std::lock_guard<std::mutex> lock(m_guard);
     --m_fireSize;
     std::this_thread::sleep_for(std::chrono::seconds(6));
-    Screen.refreshHouse(m_fireSize);
+    m_screen->refreshHouse(m_fireSize);
 }
 
 void House::ignite()
@@ -22,5 +23,5 @@ void House::ignite()
     std::lock_guard<std::mutex> lock(m_guard);
     ++m_fireSize;
     std::this_thread::sleep_for(std::chrono::seconds(2));
-    Screen.refreshHouse(m_fireSize);
+    m_screen->refreshHouse(m_fireSize);
 }
