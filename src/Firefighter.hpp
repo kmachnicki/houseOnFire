@@ -11,4 +11,5 @@ public:
     ~Firefighter();
 
     void run();
+    std::string getCurrentStatus();
 };

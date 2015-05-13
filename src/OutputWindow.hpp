@@ -1,27 +1,29 @@
 #pragma once
 
 #include <ncurses.h>
+#include <thread>
 #include <mutex>
+#include <vector>
 
 struct Window
 {
     Window() = default;
-    Window(WINDOW* w)
-            : w_(w)
-    {
-    }
+    Window(WINDOW* window)
+        : window(window)
+    {}
     ~Window()
     {
-        delwin(w_);
+        delwin(window);
     }
 
-    WINDOW* w_ = nullptr;
+    WINDOW* window = nullptr;
 };
 
 struct Coords
 {
     Coords(unsigned x, unsigned y)
-        : x(x), y(y) {}
+        : x(x), y(y)
+    {}
     unsigned x = 0;
     unsigned y = 0;
 };
@@ -32,9 +34,9 @@ public:
     OutputWindow();
     virtual ~OutputWindow();
 
-    void refreshFirefighters();
-    void refreshArsonists();
-    void refreshHouse();
+    void refreshFirefighters(std::vector<std::thread> firefighters);
+    void refreshArsonists(std::vector<std::thread> arsonists);
+    void refreshHouse(unsigned houseFireSize);
 
 private:
     std::mutex m_screenLock;

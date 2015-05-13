@@ -12,4 +12,5 @@ public:
     ~Arsonist();
 
     void run();
+    std::string getCurrentStatus();
 };
