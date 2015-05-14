@@ -42,15 +42,15 @@ void OutputWindow::refreshFirefighters(unsigned id, std::string status)
 {
     std::lock_guard<std::mutex> lock(m_screenLock);
     m_firefighters[id] = status;
-    std::stringstream message;
+    std::string message;
     unsigned i = 0;
     for (auto it = m_firefighters.begin(); it != m_firefighters.end(); ++it, ++i)
     {
-        message << "ID: " << it->first << " Status: " << it->second << std::endl;
+        message = "ID: " + std::to_string(it->first) + " Status: " + it->second;
         move(i + 2, 0);
         clrtoeol();
         refresh();
-        mvwprintw(m_firefightersWindow.window, i + 2, 0, message.str().c_str());
+        mvwprintw(m_firefightersWindow.window, i + 2, 0, message.c_str());
     }
     wrefresh(m_firefightersWindow.window);
 }
@@ -59,15 +59,15 @@ void OutputWindow::refreshArsonists(unsigned id, std::string status)
 {
     std::lock_guard<std::mutex> lock(m_screenLock);
     m_arsonists[id] = status;
-    std::stringstream message;
+    std::string message;
     unsigned i = 0;
     for (auto it = m_arsonists.begin(); it != m_arsonists.end(); ++it, ++i)
     {
-        message << "ID: " << it->first << " Status: " << it->second << std::endl;
+        message = "ID: " + std::to_string(it->first) + " Status: " + it->second;
         move(i + 2, 0);
         clrtoeol();
         refresh();
-        mvwprintw(m_arsonistsWindow.window, i + 2, 0, message.str().c_str());
+        mvwprintw(m_arsonistsWindow.window, i + 2, 0, message.c_str());
     }
     wrefresh(m_arsonistsWindow.window);
 }
@@ -76,24 +76,25 @@ void OutputWindow::refreshResources(unsigned numOfHatchets, unsigned numOfFireho
                                     unsigned numOfMatches, unsigned numOfFuel)
 {
     std::lock_guard<std::mutex> lock(m_screenLock);
-    std::stringstream message;
-    message << "Hatches: " << numOfHatchets << " Firehoses: " << numOfFirehoses << " Helmets: " << numOfHelmets
-            << " Matches: " << numOfMatches << " Fuel: " << numOfFuel << std::endl;
+    std::string message;
+    message = "Hatches: " + std::to_string(numOfHatchets) + " Firehoses: " + std::to_string(numOfFirehoses)
+            + " Helmets: " + std::to_string(numOfHelmets) + " Matches: " + std::to_string(numOfMatches)
+            + " Fuel: " + std::to_string(numOfFuel);
     move(2, 0);
     clrtoeol();
     refresh();
-    mvwprintw(m_resourcesWindow.window, 2, 0, message.str().c_str());
+    mvwprintw(m_resourcesWindow.window, 2, 0, message.c_str());
     wrefresh(m_resourcesWindow.window);
 }
 
 void OutputWindow::refreshHouse(unsigned houseFireSize)
 {
     std::lock_guard<std::mutex> lock(m_screenLock);
-    std::stringstream message;
-    message << "Destruction level: " << houseFireSize << "%";
+    std::string message;
+    message + "Destruction level: " + std::to_string(houseFireSize) + "%";
     move(2, 0);
     clrtoeol();
     refresh();
-    mvwprintw(m_houseWindow.window, 2, 0, message.str().c_str());
+    mvwprintw(m_houseWindow.window, 2, 0, message.c_str());
     wrefresh(m_houseWindow.window);
 }

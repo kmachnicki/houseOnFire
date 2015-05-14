@@ -5,6 +5,7 @@
 #include <mutex>
 #include <map>
 #include <sstream>
+#include <string>
 
 class Firefighter;
 class Arsonist;

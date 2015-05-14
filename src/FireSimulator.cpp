@@ -4,26 +4,30 @@ FireSimulator::FireSimulator(unsigned numOfFirefighters, unsigned numOfArsonists
                              unsigned numOfFirehoses, unsigned numOfHelmets, unsigned initialFireSize)
     : m_firefighters(numOfFirefighters)
     , m_arsonists(numOfArsonists)
-    , m_playground(new Playground(numOfHatchets, numOfFirehoses, numOfHelmets))
-    , m_screen(new OutputWindow())
-    , m_house(new House(initialFireSize, m_screen))
+    , m_playground(std::make_shared<Playground>(numOfHatchets, numOfFirehoses, numOfHelmets))
+    , m_screen(std::make_shared<OutputWindow>())
+    , m_house(std::make_shared<House>(initialFireSize, m_screen))
 {}
 
 void FireSimulator::run()
 {
+
+    m_screen->refreshResources(4, 6, 6, 7, 8);
     m_screen->refreshHouse(53);
     for (unsigned i = 0; i < m_firefighters.size(); ++i)
     {
-        //m_screen->refreshFirefighters(i, "sdf");
+        std::this_thread::sleep_for(std::chrono::milliseconds(1000));
+        m_screen->refreshFirefighters(i, "sdf");
         //m_firefighters[i] = std::move(std::thread(&Firefighter::run, new Firefighter(i, m_playground, m_house, m_screen)));
     }
 
     for (unsigned i = 0; i < m_arsonists.size(); ++i)
     {
-        //m_screen->refreshArsonists(i, "xxxx");
+        std::this_thread::sleep_for(std::chrono::milliseconds(1000));
+        m_screen->refreshArsonists(i, "xxxx");
         //m_arsonists[i] = std::move(std::thread(&Arsonist::run, new Arsonist(i, m_playground, m_house, m_screen)));
     }
-
+m_screen->refreshHouse(51);
     /*for (auto& firefighter : m_firefighters)
     {
         firefighter.join();
@@ -33,8 +37,5 @@ void FireSimulator::run()
     {
         arsonist.join();
     }*/
-    usleep(3000);
-    delete m_playground;
-    delete m_house;
-    delete m_screen;
+    std::this_thread::sleep_for(std::chrono::milliseconds(5000));
 }

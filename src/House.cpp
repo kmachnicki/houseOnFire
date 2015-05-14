@@ -1,6 +1,6 @@
 #include "House.hpp"
 
-House::House(unsigned initialFireSize, OutputWindow* screen)
+House::House(unsigned initialFireSize, std::shared_ptr<OutputWindow> screen)
     : m_fireSize(initialFireSize)
     , m_screen(screen)
 {}
