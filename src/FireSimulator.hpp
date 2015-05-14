@@ -34,7 +34,7 @@ private:
     std::vector<std::thread> m_firefighters;
     std::vector<std::thread> m_arsonists;
 
-    std::shared_ptr<Playground> m_playground;
-    std::shared_ptr<House> m_house;
-    std::shared_ptr<OutputWindow> m_screen;
+    Playground* m_playground;
+    House* m_house;
+    OutputWindow* m_screen;
 };

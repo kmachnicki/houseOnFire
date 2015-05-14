@@ -20,14 +20,17 @@ OutputWindow::OutputWindow()
     m_arsonistsWindow.window = newwin(m_screen.y / 2, (m_screen.x / 3), 0, (m_screen.x / 3));
     m_houseWindow.window = newwin(m_screen.y / 2, (m_screen.x / 3), 0,
             (m_screen.x / 3) + (m_screen.x / 3));
+    m_resourcesWindow.window = newwin(m_screen.y / 2, m_screen.x, m_screen.y / 2, 0);
 
     mvwprintw(m_firefightersWindow.window, 0, 0, "Firefighters");
     mvwprintw(m_arsonistsWindow.window, 0, 0, "Arsonists");
     mvwprintw(m_houseWindow.window, 0, 0, "House");
+    mvwprintw(m_resourcesWindow.window, 0, 0, "Resources");
 
     wrefresh(m_firefightersWindow.window);
     wrefresh(m_arsonistsWindow.window);
     wrefresh(m_houseWindow.window);
+    wrefresh(m_resourcesWindow.window);
 }
 
 OutputWindow::~OutputWindow()
@@ -43,7 +46,7 @@ void OutputWindow::refreshFirefighters(unsigned id, std::string status)
     unsigned i = 0;
     for (auto it = m_firefighters.begin(); it != m_firefighters.end(); ++it, ++i)
     {
-        message << "ID: " << it->first << " Status: " << it->second;
+        message << "ID: " << it->first << " Status: " << it->second << std::endl;
         move(i + 2, 0);
         clrtoeol();
         refresh();
@@ -60,7 +63,7 @@ void OutputWindow::refreshArsonists(unsigned id, std::string status)
     unsigned i = 0;
     for (auto it = m_arsonists.begin(); it != m_arsonists.end(); ++it, ++i)
     {
-        message << "ID: " << it->first << " Status: " << it->second;
+        message << "ID: " << it->first << " Status: " << it->second << std::endl;
         move(i + 2, 0);
         clrtoeol();
         refresh();
@@ -69,14 +72,28 @@ void OutputWindow::refreshArsonists(unsigned id, std::string status)
     wrefresh(m_arsonistsWindow.window);
 }
 
-void OutputWindow::refreshHouse(unsigned houseFireSize)
+void OutputWindow::refreshResources(unsigned numOfHatchets, unsigned numOfFirehoses, unsigned numOfHelmets,
+                                    unsigned numOfMatches, unsigned numOfFuel)
 {
     std::lock_guard<std::mutex> lock(m_screenLock);
-    std::stringstream status;
-    status << "Destruction level: " << houseFireSize << "%";
+    std::stringstream message;
+    message << "Hatches: " << numOfHatchets << " Firehoses: " << numOfFirehoses << " Helmets: " << numOfHelmets
+            << " Matches: " << numOfMatches << " Fuel: " << numOfFuel << std::endl;
     move(2, 0);
     clrtoeol();
     refresh();
-    mvwprintw(m_houseWindow.window, 2, 0, status.str().c_str());
+    mvwprintw(m_resourcesWindow.window, 2, 0, message.str().c_str());
+    wrefresh(m_resourcesWindow.window);
+}
+
+void OutputWindow::refreshHouse(unsigned houseFireSize)
+{
+    std::lock_guard<std::mutex> lock(m_screenLock);
+    std::stringstream message;
+    message << "Destruction level: " << houseFireSize << "%";
+    move(2, 0);
+    clrtoeol();
+    refresh();
+    mvwprintw(m_houseWindow.window, 2, 0, message.str().c_str());
     wrefresh(m_houseWindow.window);
 }

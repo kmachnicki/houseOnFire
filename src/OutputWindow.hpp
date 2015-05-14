@@ -37,13 +37,15 @@ class OutputWindow
 public:
     OutputWindow();
     virtual ~OutputWindow();
-    OutputWindow(OutputWindow&&) = delete;
+    /*OutputWindow(OutputWindow&&) = delete;
     OutputWindow(const OutputWindow&) = delete;
-    OutputWindow& operator=(OutputWindow&) = delete;
+    OutputWindow& operator=(OutputWindow&) = delete;*/
 
     void refreshFirefighters(unsigned id, std::string status);
     void refreshArsonists(unsigned id, std::string status);
     void refreshHouse(unsigned houseFireSize);
+    void refreshResources(unsigned numOfHatchets, unsigned numOfFirehoses, unsigned numOfHelmets,
+                          unsigned numOfMatches, unsigned numOfFuel);
 
 private:
     std::map<unsigned, std::string> m_firefighters;
@@ -53,4 +55,5 @@ private:
     Window m_firefightersWindow;
     Window m_arsonistsWindow;
     Window m_houseWindow;
+    Window m_resourcesWindow;
 };

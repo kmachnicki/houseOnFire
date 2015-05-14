@@ -1,6 +1,6 @@
 #include "Firefighter.hpp"
 
-Firefighter::Firefighter(unsigned id, std::shared_ptr<Playground> playground, std::shared_ptr<House> house, std::shared_ptr<OutputWindow> screen)
+Firefighter::Firefighter(unsigned id, Playground* playground, House* house, OutputWindow* screen)
     : m_id(id)
     , m_status("Waiting")
     , m_isRunning(true)

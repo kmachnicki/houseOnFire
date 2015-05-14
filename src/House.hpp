@@ -8,7 +8,7 @@
 class House
 {
 public:
-    House(unsigned initialFireSize, std::shared_ptr<OutputWindow> screen);
+    House(unsigned initialFireSize, OutputWindow* screen);
     virtual ~House() = default;
 
     unsigned getFireSize() const;

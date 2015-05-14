@@ -12,7 +12,7 @@
 class Firefighter
 {
 public:
-    Firefighter(unsigned id, std::shared_ptr<Playground> playground, std::shared_ptr<House> house, std::shared_ptr<OutputWindow> screen);
+    Firefighter(unsigned id, Playground* playground, House* house, OutputWindow* screen);
     ~Firefighter();
 
     void run();
@@ -23,7 +23,7 @@ private:
     unsigned m_id;
     std::string m_status;
     bool m_isRunning;
-    std::shared_ptr<Playground> m_playground;
-    std::shared_ptr<House> m_house;
-    std::shared_ptr<OutputWindow> m_screen;
+    Playground* m_playground;
+    House* m_house;
+    OutputWindow* m_screen;
 };
