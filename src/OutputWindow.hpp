@@ -38,9 +38,9 @@ class OutputWindow
 public:
     OutputWindow();
     virtual ~OutputWindow();
-    /*OutputWindow(OutputWindow&&) = delete;
+    OutputWindow(OutputWindow&&) = delete;
     OutputWindow(const OutputWindow&) = delete;
-    OutputWindow& operator=(OutputWindow&) = delete;*/
+    OutputWindow& operator=(OutputWindow&) = delete;
 
     void refreshFirefighters(unsigned id, std::string status);
     void refreshArsonists(unsigned id, std::string status);
