@@ -14,16 +14,22 @@ unsigned House::getFireSize() const
 
 void House::extinguish()
 {
-    std::unique_lock<std::mutex> lock(m_lock);
-    std::this_thread::sleep_for(std::chrono::seconds(6));
-    --m_fireSize;
-    m_screen->refreshHouse(m_fireSize);
+    std::unique_lock<std::mutex> lock(m_lock, std::defer_lock);
+    if (lock.try_lock())
+    {
+        std::this_thread::sleep_for(std::chrono::seconds(6));
+        --m_fireSize;
+        m_screen->refreshHouse(m_fireSize);
+    }
 }
 
 void House::ignite()
 {
-    std::unique_lock<std::mutex> lock(m_lock);
-    std::this_thread::sleep_for(std::chrono::seconds(2));
-    ++m_fireSize;
-    m_screen->refreshHouse(m_fireSize);
+    std::unique_lock<std::mutex> lock(m_lock, std::defer_lock);
+    if (lock.try_lock())
+    {
+        std::this_thread::sleep_for(std::chrono::seconds(2));
+        ++m_fireSize;
+        m_screen->refreshHouse(m_fireSize);
+    }
 }

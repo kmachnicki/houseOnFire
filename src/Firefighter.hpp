@@ -17,4 +17,5 @@ public:
                          std::shared_ptr<House> house, std::shared_ptr<OutputWindow> screen);
     ~Firefighter() = default;
     void run() override final;
+    void updateStatus(const std::string& newStatus);
 };

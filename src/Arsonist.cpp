@@ -16,3 +16,9 @@ void Arsonist::run()
         // TODO: Add a chance of dying
     }
 }
+
+void Arsonist::updateStatus(const std::string& newStatus)
+{
+    Person::updateStatus(newStatus);
+    m_screen->refreshArsonists(m_id, m_status);
+}

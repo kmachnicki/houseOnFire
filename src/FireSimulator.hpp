@@ -43,6 +43,6 @@ private:
     std::shared_ptr<House> m_house;
     std::shared_ptr<Playground> m_playground;
 
-    std::uniform_int_distribution<unsigned> m_spawnTimeInMs{ 1000, 2000 };
+    std::uniform_int_distribution<unsigned> m_spawnTimeInMs{ 500, 1500 };
     std::mt19937_64 m_randomGenerator{ std::random_device{}() };
 };

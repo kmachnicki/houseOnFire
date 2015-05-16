@@ -20,6 +20,11 @@ unsigned Person::getId() const
     return m_id;
 }
 
+void Person::updateStatus(const std::string& newStatus)
+{
+    m_status = newStatus;
+}
+
 std::string Person::getStatus() const
 {
     return m_status;

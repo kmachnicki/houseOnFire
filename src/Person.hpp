@@ -19,6 +19,7 @@ public:
 
     void kill();
     unsigned getId() const;
+    void updateStatus(const std::string& newStatus);
     std::string getStatus() const;
 
 protected:

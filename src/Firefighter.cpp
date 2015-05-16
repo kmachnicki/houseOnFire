@@ -13,6 +13,11 @@ void Firefighter::run()
     {
         std::this_thread::sleep_for(std::chrono::milliseconds(500));
         m_house->extinguish();
-        // TODO: Add a chance of dying
     }
+}
+
+void Firefighter::updateStatus(const std::string& newStatus)
+{
+    Person::updateStatus(newStatus);
+    m_screen->refreshFirefighters(m_id, m_status);
 }
