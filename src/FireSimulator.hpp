@@ -26,6 +26,7 @@ public:
                   unsigned numOfFirehoses, unsigned numOfHelmets, unsigned initialFireSize);
     virtual ~FireSimulator() = default;
     void run();
+    void waitForSignalAndKillTasks();
 
 private:
     FireSimulator(FireSimulator&&) = delete;

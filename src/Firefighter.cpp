@@ -13,5 +13,4 @@ void Firefighter::run()
         std::this_thread::sleep_for(std::chrono::milliseconds(500));
         // TODO: Add a chance of dying
     }
-    m_screen->refreshHouse(50 + m_id);
 }

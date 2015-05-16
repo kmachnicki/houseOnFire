@@ -13,5 +13,4 @@ void Arsonist::run()
         std::this_thread::sleep_for(std::chrono::milliseconds(500));
         // TODO: Add a chance of dying
     }
-    m_screen->refreshHouse(60 + m_id);
 }
