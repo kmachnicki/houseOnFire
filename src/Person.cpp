@@ -10,6 +10,11 @@ Person::Person(unsigned id, std::shared_ptr<Playground> playground,
     , m_screen(screen)
 {}
 
+void Person::kill()
+{
+    m_isRunning.store(false);
+}
+
 unsigned Person::getId() const
 {
     return m_id;
