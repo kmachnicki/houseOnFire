@@ -14,20 +14,20 @@ void FireSimulator::run()
 {
     for (unsigned i = 0; i < m_firefighters.size(); ++i)
     {
-        std::this_thread::sleep_for(std::chrono::milliseconds(1000)); // TODO: Add random sleep time
+        std::this_thread::sleep_for(std::chrono::milliseconds(m_spawnTimeInMs(m_randomGenerator)));
         std::shared_ptr<Firefighter> firefighter = std::make_shared<Firefighter>(i + 1, m_playground, m_house, m_screen);
         m_firefighters[i] = std::make_tuple(firefighter, std::move(std::thread(&Firefighter::run, firefighter)));
     }
 
     for (unsigned i = 0; i < m_arsonists.size(); ++i)
     {
-        std::this_thread::sleep_for(std::chrono::milliseconds(1000));
+        std::this_thread::sleep_for(std::chrono::milliseconds(m_spawnTimeInMs(m_randomGenerator)));
         std::shared_ptr<Arsonist> arsonist = std::make_shared<Arsonist>(i + 1, m_playground, m_house, m_screen);
         m_arsonists[i] = std::make_tuple(arsonist, std::move(std::thread(&Arsonist::run, arsonist)));
     }
 
-    std::thread tasksKiller = std::thread(&FireSimulator::waitForSignalAndKillTasks, this);
-    tasksKiller.join();
+    auto tasksKiller = std::async(std::launch::async, [&](){ waitForSignalAndKillTasks(); });
+    tasksKiller.get();
     endwin();
 }
 
