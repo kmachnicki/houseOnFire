@@ -19,5 +19,5 @@ public:
 private:
     volatile unsigned m_fireSize;
     std::shared_ptr<OutputWindow> m_screen;
-    mutable std::mutex m_guard;
+    mutable std::mutex m_lock;
 };

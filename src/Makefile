@@ -9,7 +9,10 @@ $(TARGET): $(SOURCE)
 	$(CC) $(CFLAGS) -o $(TARGET) $(SOURCE)
 
 
-.PHONY: clean
+.PHONY: clean, test
 
 clean:
 	$(RM) $(TARGET)
+
+test:
+	./so2 3 2 2 2 2 1 1 50

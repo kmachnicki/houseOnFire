@@ -40,7 +40,7 @@ OutputWindow::~OutputWindow()
 
 void OutputWindow::refreshFirefighters(unsigned id, std::string status)
 {
-    std::lock_guard<std::mutex> lock(m_screenLock);
+    std::unique_lock<std::mutex> lock(m_screenLock);
     m_firefighters[id] = status;
     std::string message;
     unsigned i = 0;
@@ -56,7 +56,7 @@ void OutputWindow::refreshFirefighters(unsigned id, std::string status)
 
 void OutputWindow::refreshArsonists(unsigned id, std::string status)
 {
-    std::lock_guard<std::mutex> lock(m_screenLock);
+    std::unique_lock<std::mutex> lock(m_screenLock);
     m_arsonists[id] = status;
     std::string message;
     unsigned i = 0;
@@ -73,7 +73,7 @@ void OutputWindow::refreshArsonists(unsigned id, std::string status)
 void OutputWindow::refreshResources(unsigned numOfHatchets, unsigned numOfFirehoses, unsigned numOfHelmets,
                                     unsigned numOfMatches, unsigned numOfFuel)
 {
-    std::lock_guard<std::mutex> lock(m_screenLock);
+    std::unique_lock<std::mutex> lock(m_screenLock);
     std::string message;
     message = "Hatches: " + std::to_string(numOfHatchets) + " Firehoses: " + std::to_string(numOfFirehoses)
             + " Helmets: " + std::to_string(numOfHelmets) + " Matches: " + std::to_string(numOfMatches)
@@ -86,7 +86,7 @@ void OutputWindow::refreshResources(unsigned numOfHatchets, unsigned numOfFireho
 
 void OutputWindow::refreshHouse(unsigned houseFireSize)
 {
-    std::lock_guard<std::mutex> lock(m_screenLock);
+    std::unique_lock<std::mutex> lock(m_screenLock);
     std::string message;
     message = "Destruction level: " + std::to_string(houseFireSize) + "%";
     move(2, 0);

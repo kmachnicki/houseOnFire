@@ -23,7 +23,8 @@ class FireSimulator
 {
 public:
     FireSimulator(unsigned numOfFirefighters, unsigned numOfArsonists, unsigned numOfHatchets,
-                  unsigned numOfFirehoses, unsigned numOfHelmets, unsigned initialFireSize);
+                  unsigned numOfFirehoses, unsigned numOfHelmets, unsigned numOfMatches,
+                  unsigned numOfFuel, unsigned initialFireSize);
     virtual ~FireSimulator() = default;
     void run();
     void waitForSignalAndKillTasks();
