@@ -8,22 +8,13 @@
 
 #include "Playground.hpp"
 #include "House.hpp"
+#include "Person.hpp"
 
-class Arsonist
+class Arsonist final : public Person
 {
 public:
-    Arsonist(unsigned id, std::shared_ptr<Playground> playground, std::shared_ptr<House> house, std::shared_ptr<OutputWindow> screen);
-    ~Arsonist();
-
-    void run();
-    unsigned getId() const;
-    std::string getStatus() const;
-
-private:
-    unsigned m_id;
-    std::string m_status;
-    bool m_isRunning;
-    std::shared_ptr<Playground> m_playground;
-    std::shared_ptr<House> m_house;
-    std::shared_ptr<OutputWindow> m_screen;
+    explicit Arsonist(unsigned id, std::shared_ptr<Playground> playground,
+                      std::shared_ptr<House> house, std::shared_ptr<OutputWindow> screen);
+    ~Arsonist() = default;
+    void run() override final;
 };

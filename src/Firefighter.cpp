@@ -1,15 +1,8 @@
 #include "Firefighter.hpp"
 
-Firefighter::Firefighter(unsigned id, std::shared_ptr<Playground> playground, std::shared_ptr<House> house, std::shared_ptr<OutputWindow> screen)
-    : m_id(id)
-    , m_status("Waiting")
-    , m_isRunning(true)
-    , m_playground(playground)
-    , m_house(house)
-    , m_screen(screen)
-{}
-
-Firefighter::~Firefighter()
+Firefighter::Firefighter(unsigned id, std::shared_ptr<Playground> playground,
+                         std::shared_ptr<House> house, std::shared_ptr<OutputWindow> screen)
+    : Person(id, playground, house, screen)
 {}
 
 void Firefighter::run()
@@ -21,14 +14,4 @@ void Firefighter::run()
         m_isRunning = false;
         // TODO: Add a chance of dying
     }
-}
-
-unsigned Firefighter::getId() const
-{
-    return m_id;
-}
-
-std::string Firefighter::getStatus() const
-{
-    return m_status;
 }

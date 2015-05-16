@@ -31,4 +31,5 @@ void FireSimulator::run()
         arsonist.join();
     }
     std::this_thread::sleep_for(std::chrono::milliseconds(5000));
+    endwin();
 }
