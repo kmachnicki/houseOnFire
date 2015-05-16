@@ -5,9 +5,9 @@ FireSimulator::FireSimulator(unsigned numOfFirefighters, unsigned numOfArsonists
                              unsigned numOfFuel, unsigned initialFireSize)
     : m_firefighters(numOfFirefighters)
     , m_arsonists(numOfArsonists)
-    , m_playground(std::make_shared<Playground>(numOfHatchets, numOfFirehoses, numOfHelmets, numOfMatches, numOfFuel))
     , m_screen(std::make_shared<OutputWindow>())
     , m_house(std::make_shared<House>(initialFireSize, m_screen))
+    , m_playground(std::make_shared<Playground>(numOfHatchets, numOfFirehoses, numOfHelmets, numOfMatches, numOfFuel, m_screen))
 {}
 
 void FireSimulator::run()
