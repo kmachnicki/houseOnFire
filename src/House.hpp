@@ -17,8 +17,8 @@ public:
 
     unsigned getFireSize() const;
     bool isSomeoneInside() const;
-    void extinguish(Firefighter* firefighter);
-    void ignite(Arsonist* arsonist);
+    bool extinguish(Firefighter* firefighter);
+    bool ignite(Arsonist* arsonist);
 
 private:
     volatile unsigned m_fireSize;

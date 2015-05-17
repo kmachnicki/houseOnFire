@@ -11,10 +11,30 @@ void Arsonist::run()
 {
     while (m_isRunning.load() == true)
     {
-        std::this_thread::sleep_for(std::chrono::milliseconds(500));
-        updateStatus("Getting inside...");
-        m_house->ignite(this);
-        updateStatus("Gonna sleep");
+        updateStatus("Acquiring tools");
+
+        // TODO: Get resources...
+
+        bool workDone;
+        while (m_isRunning.load() == true)
+        {
+            updateStatus("Getting inside...");
+            workDone = m_house->ignite(this);
+            if (workDone == true)
+            {
+                break;
+            }
+            else
+            {
+                std::this_thread::sleep_for(std::chrono::milliseconds(m_spawnTimeInMs(m_randomGenerator)));
+            }
+        }
+        updateStatus("Releasing tools");
+
+        // TODO: Release resources...
+
+        updateStatus("Gonna rest");
+        std::this_thread::sleep_for(std::chrono::milliseconds(2000 + m_spawnTimeInMs(m_randomGenerator)));
     }
     updateStatus("Killing myself");
 }

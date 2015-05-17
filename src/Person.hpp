@@ -3,6 +3,7 @@
 #include <string>
 #include <memory>
 #include <atomic>
+#include <random>
 
 #include "Playground.hpp"
 #include "House.hpp"
@@ -29,4 +30,7 @@ protected:
     std::shared_ptr<Playground> m_playground;
     std::shared_ptr<House> m_house;
     std::shared_ptr<OutputWindow> m_screen;
+
+    std::uniform_int_distribution<unsigned> m_spawnTimeInMs{ 500, 1500 };
+    std::mt19937_64 m_randomGenerator{ std::random_device{}() };
 };
