@@ -11,9 +11,12 @@ void Firefighter::run()
 {
     while (m_isRunning.load() == true)
     {
-        std::this_thread::sleep_for(std::chrono::milliseconds(500));
-        m_house->extinguish();
+        std::this_thread::sleep_for(std::chrono::milliseconds(1000));
+        updateStatus("Getting inside...");
+        m_house->extinguish(this);
+        updateStatus("Gonna sleep");
     }
+    updateStatus("Killing myself");
 }
 
 void Firefighter::updateStatus(const std::string& newStatus)

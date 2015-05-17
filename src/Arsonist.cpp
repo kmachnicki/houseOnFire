@@ -12,9 +12,11 @@ void Arsonist::run()
     while (m_isRunning.load() == true)
     {
         std::this_thread::sleep_for(std::chrono::milliseconds(500));
-        m_house->ignite();
-        // TODO: Add a chance of dying
+        updateStatus("Getting inside...");
+        m_house->ignite(this);
+        updateStatus("Gonna sleep");
     }
+    updateStatus("Killing myself");
 }
 
 void Arsonist::updateStatus(const std::string& newStatus)

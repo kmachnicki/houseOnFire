@@ -46,8 +46,9 @@ void OutputWindow::refreshFirefighters(unsigned id, std::string status)
     unsigned i = 0;
     for (auto it = m_firefighters.begin(); it != m_firefighters.end(); ++it, ++i)
     {
-        message = "ID: " + std::to_string(it->first) + " Status: " + it->second;
+        message = "ID: " + std::to_string(it->first) + ":  " + it->second;
         move(i + 2, 0);
+        wclrtoeol(m_firefightersWindow.window);
         refresh();
         mvwprintw(m_firefightersWindow.window, i + 2, 0, message.c_str());
     }
@@ -62,8 +63,9 @@ void OutputWindow::refreshArsonists(unsigned id, std::string status)
     unsigned i = 0;
     for (auto it = m_arsonists.begin(); it != m_arsonists.end(); ++it, ++i)
     {
-        message = "ID: " + std::to_string(it->first) + " Status: " + it->second;
+        message = "ID: " + std::to_string(it->first) + ": " + it->second;
         move(i + 2, 0);
+        wclrtoeol(m_arsonistsWindow.window);
         refresh();
         mvwprintw(m_arsonistsWindow.window, i + 2, 0, message.c_str());
     }
@@ -79,6 +81,7 @@ void OutputWindow::refreshResources(unsigned numOfHatchets, unsigned numOfFireho
             + " Helmets: " + std::to_string(numOfHelmets) + " Matches: " + std::to_string(numOfMatches)
             + " Fuel: " + std::to_string(numOfFuel);
     move(2, 0);
+    wclrtoeol(m_resourcesWindow.window);
     refresh();
     mvwprintw(m_resourcesWindow.window, 2, 0, message.c_str());
     wrefresh(m_resourcesWindow.window);
@@ -90,6 +93,7 @@ void OutputWindow::refreshHouse(unsigned houseFireSize)
     std::string message;
     message = "Destruction level: " + std::to_string(houseFireSize) + "%";
     move(2, 0);
+    wclrtoeol(m_houseWindow.window);
     refresh();
     mvwprintw(m_houseWindow.window, 2, 0, message.c_str());
     wrefresh(m_houseWindow.window);
