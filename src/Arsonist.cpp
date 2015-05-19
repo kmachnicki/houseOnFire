@@ -12,12 +12,49 @@ void Arsonist::run()
     while (m_isRunning.load() == true)
     {
         updateStatus("Acquiring tools");
+        std::this_thread::sleep_for(std::chrono::milliseconds(1000 + m_spawnTimeInMs(m_randomGenerator)));
 
-        // TODO: Get resources...
+        auto startTime = std::chrono::high_resolution_clock::now();
+        bool hasMatches = false, hasFuel = false;
+        while((hasMatches != true) && (hasFuel != true))
+        {
+            if (m_isRunning.load() == false)
+            {
+                updateStatus("Killing myself");
+                return;
+            }
+
+            hasMatches = m_playground->acquireMatch();
+            hasFuel = m_playground->acquireFuel();
+            std::this_thread::sleep_for(std::chrono::milliseconds(m_spawnTimeInMs(m_randomGenerator)));
+            auto stopTime = std::chrono::high_resolution_clock::now();
+            std::chrono::duration<double, std::milli> elapsedTime = stopTime - startTime;
+            if (elapsedTime.count() > 4000)
+            {
+                updateStatus("Releasing tools...");
+                if (hasMatches == true)
+                {
+                    m_playground->storeMatch();
+                    hasMatches = false;
+                }
+                if (hasFuel == true)
+                {
+                    m_playground->storeFuel();
+                    hasFuel = false;
+                }
+                std::this_thread::sleep_for(std::chrono::milliseconds(m_spawnTimeInMs(m_randomGenerator)));
+            }
+        }
 
         bool workDone;
-        while (m_isRunning.load() == true)
+        while (true)
         {
+            if (m_isRunning.load() == false)
+            {
+                updateStatus("Killing myself");
+                return;
+            }
+
             updateStatus("Getting inside...");
             workDone = m_house->ignite(this);
             if (workDone == true)
@@ -30,8 +67,10 @@ void Arsonist::run()
             }
         }
         updateStatus("Releasing tools");
+        std::this_thread::sleep_for(std::chrono::milliseconds(1000 + m_spawnTimeInMs(m_randomGenerator)));
 
-        // TODO: Release resources...
+        m_playground->storeMatch();
+        m_playground->storeFuel();
 
         updateStatus("Gonna rest");
         std::this_thread::sleep_for(std::chrono::milliseconds(2000 + m_spawnTimeInMs(m_randomGenerator)));
